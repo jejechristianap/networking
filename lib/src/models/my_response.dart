@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:dio_http/dio_http.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:networking/src/models/my_json.dart';
 import 'package:networking/src/models/my_model.dart';

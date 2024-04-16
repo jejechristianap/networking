@@ -1,17 +1,16 @@
 name: networking
 description: A new Flutter project.
-version: 0.0.1
-homepage:
+version: 1.0.0
 
 environment:
-  sdk: ">=2.16.2 <3.0.0"
-  flutter: ">=1.17.0"
+  sdk: '>=3.0.1 <4.0.0'
+  flutter: ">=3.16.4"
 
 dependencies:
   flutter:
     sdk: flutter
-  dio_http: ^5.0.4
-  pretty_json: ^2.0.0
+  dio: 5.4.1
+  pretty_json: 2.0.0
 
 dev_dependencies:
   flutter_test:
