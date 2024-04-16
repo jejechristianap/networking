@@ -1,8 +1,9 @@
-import 'package:dio_http/dio_http.dart';
+
+import 'package:dio/dio.dart';
 
 class NetworkInterceptor {
   Function(RequestOptions, RequestInterceptorHandler)? onRequest;
-  Function(DioError, ErrorInterceptorHandler)? onError;
+  Function(DioException, ErrorInterceptorHandler)? onError;
   Function(Response, ResponseInterceptorHandler)? onSuccess;
 
   NetworkInterceptor({

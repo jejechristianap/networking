@@ -1,6 +1,11 @@
+import 'package:flutter/foundation.dart';
+
 class NetworkSetting {
   String? baseUrl;
   late Map<String, String> baseHeader;
+  bool _isLoggerEnabled = false;
+  bool get isLoggerEnabled => _isLoggerEnabled;
+
   static NetworkSetting shared = NetworkSetting(
     baseUrl: '',
     baseHeader: <String, String>{},
@@ -15,9 +20,11 @@ class NetworkSetting {
   NetworkSetting({
     String? baseUrl,
     baseHeader,
+    bool isLoggerEnabled = kDebugMode,
   }) {
     this.baseUrl = baseUrl ?? NetworkSetting.shared.baseUrl;
     this.baseHeader = baseHeader ?? NetworkSetting.shared.baseHeader;
+    _isLoggerEnabled = isLoggerEnabled;
   }
 
   /// Get Full Header
@@ -112,6 +119,14 @@ class NetworkSetting {
 
   NetworkSetting clearDefaultHeader() {
     baseHeader.removeWhere((key, value) => true);
+    return this;
+  }
+
+  /// Set Enable Logger
+  /// print log in system console and and monitoring screen
+
+  NetworkSetting setEnableLogger(bool isEnabled) {
+    _isLoggerEnabled = isEnabled;
     return this;
   }
 }
