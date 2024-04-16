@@ -1,0 +1,35 @@
+name: Update Version
+
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  publish_tags:
+    if: github.event.pull_request.merged && github.base_ref == 'master'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+
+    - name: Get version
+      id: get-version
+      run: |
+        full_version=$(cat pubspec.yaml | grep 'version' | cut -d ':' -f2 | sed 's/ //' | cut -d'+' -f1)
+        echo "full_version=$full_version" >> $GITHUB_OUTPUT
+        
+        major_version=$(echo "$full_version" | cut -d'.' -f1)
+        echo "major_version=$major_version" >> $GITHUB_OUTPUT
+
+    - name: Tag new target
+      run: |
+        git tag -f v${{ steps.get-version.outputs.full_version }} ${{ github.event.pull_request.head.sha }}
+        git tag -f v${{ steps.get-version.outputs.major_version }} ${{ github.event.pull_request.head.sha }}
+
+    - name: Push new tag
+      run: |
+        git push -f origin v${{ steps.get-version.outputs.full_version }}
+        git push -f origin v${{ steps.get-version.outputs.major_version }}
+
